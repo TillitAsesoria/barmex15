@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_stock_scheduler_compute" model="ir.ui.view">
+            <field name="name">view.form.stock.scheduler.compute</field>
+            <field name="model">stock.scheduler.compute</field>
+            <field name="inherit_id" ref="stock.view_procurement_compute_wizard"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//form" position="replace">
+                    <form string="Parameters">
+                        <p>
+                        The stock will be reserved for operations waiting for availability and the reordering rules will be triggered.
+                        </p>
+                        <separator string="Abastecimientos Barmex"/>
+                        <group>
+                        <field name="almacen"/>
+                        <field name="marca"/>
+                        </group>
+                        <footer>
+                            <button name="abastecimientos" string="Barmex Abastecimientos" type="object" class="btn-primary"/>
+                            <button name="procure_calculation" string="Run Scheduler" type="object" class="btn-secondary"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
