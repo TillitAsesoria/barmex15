@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="barmex_product_barmex_menu_root"
+                  parent="stock.menu_stock_config_settings"
+                  name="Barmex product" />
+
+        <menuitem id="barmex_product_brand_menu"
+              parent="barmex_product_barmex_menu_root"
+              action="barmex_product_brand_action"
+              name="Brand" />
+
+        <menuitem id="barmex_product_group_menu"
+              parent="barmex_product_barmex_menu_root"
+              action="barmex_product_group_action"
+              name="Group" />
+
+        <menuitem id="barmex_product_speciallity_menu"
+                  parent="barmex_product_barmex_menu_root"
+                  action="barmex_product_speciallity_action"
+                  name="Speciallity" />
+
+        <menuitem id="barmex_product_subgroup_menu"
+                  parent="barmex_product_barmex_menu_root"
+                  action="barmex_product_subgroup_action"
+                  name="Sub Group" />
+
+        <menuitem id="barmex_product_subline_menu"
+                  parent="barmex_product_barmex_menu_root"
+                  action="barmex_product_subline_action"
+                  name="Sub Line" />
+    </data>
+</odoo>

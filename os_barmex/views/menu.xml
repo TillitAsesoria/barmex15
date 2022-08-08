@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="barmex_product_classification_menu_root"
+                  parent="stock.menu_stock_config_settings"
+                  name="Inventory classification"/>
+
+        <menuitem id="barmex_product_classification_report_menu_root"
+                  parent="stock.menu_warehouse_report"
+                  name="Inventory classification"/>
+
+        <menuitem id="barmex_product_classification_report_menu"
+                  parent="barmex_product_classification_report_menu_root"
+                  action="barmex_product_classification_action"
+                  name="Classification"/>
+
+        <menuitem id="barmex_product_classification_menu"
+                  parent="barmex_product_classification_menu_root"
+                  action="barmex_classification_action"
+                  name="Classification"/>
+
+        <menuitem id="barmex_sale_zone_root"
+                  name="Sale zone"
+                  parent="sale.menu_sale_config" />
+
+        <menuitem id="barmex_sale_zone_menu"
+                  name="Configure sale zone"
+                  parent="barmex_sale_zone_root"
+                  action="barmex_sale_zone_action" />
+
+        <menuitem id="barmex_invoice_menu"
+                  parent="account.menu_finance_payables"
+                  action="barmex_invoice_action"
+                  name="Barmex invoices" />
+
+        <menuitem id="barmex_corporate_menu"
+                  name="Corporativos"
+                  parent="sale.menu_sale_config"
+                  action="barmex_corporate_action" />
+
+        <menuitem id="barmex_product_classification_process_menu"
+                  parent="barmex_product_classification_menu_root"
+                  action="barmex_classification_process_action"
+                  name="Product Classification Process" />
+
+        <menuitem id="barmex_reason_menu"
+                  parent="account.account_invoicing_menu"
+                  action="barmex_reason_action"
+                  name="Credit note reason" />
+
+
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+barmex_foreign_trade_user,Foreign trade,model_barmex_foreign_trade,purchase.group_purchase_user,1,0,0,0
+barmex_foreign_trade_admin,Foreign trade,model_barmex_foreign_trade,purchase.group_purchase_manager,1,1,1,1
+barmex_customs_admin,Customs,model_barmex_foreign_trade_customs,stock.group_stock_manager,1,1,1,1
+barmex_customs_read,Customs,model_barmex_foreign_trade_customs,base.group_user,1,0,0,0

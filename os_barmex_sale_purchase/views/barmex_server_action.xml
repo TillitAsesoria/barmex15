@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="purchase_requisition">
+            <field name="name">Purchase requisition processing</field>
+            <field name="model_id" ref="purchase.model_purchase_order" />
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="sequence">1</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.multi_req()
+            </field>
+        </record>
+
+    </data>
+</odoo>

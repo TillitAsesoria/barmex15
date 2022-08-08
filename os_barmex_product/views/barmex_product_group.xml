@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Search -->
+    <record model="ir.ui.view" id="view_barmex_product_group_search">
+        <field name="name">barmex_product_group_search</field>
+        <field name="model">barmex.product.group</field>
+        <field name="arch" type="xml">
+            <search string="Product group search">
+                <field name="code" />
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record model="ir.ui.view" id="view_barmex_product_group_tree">
+        <field name="name">barmex_product_group_tree</field>
+        <field name="model">barmex.product.group</field>
+        <field name="type">tree</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree string="Group" editable="bottom">
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="barmex_product_group_action" model="ir.actions.act_window">
+        <field name="name">Product group</field>
+        <field name="res_model">barmex.product.group</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

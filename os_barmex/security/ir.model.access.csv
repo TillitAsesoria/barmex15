@@ -1,0 +1,28 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+barmex_addenda_read,Addenda,model_barmex_addenda,contact_user,1,0,0,0
+barmex_addenda_admin,Addenda,model_barmex_addenda,contact_manager,1,1,1,1
+barmex_addenda_record_read,Addenda,model_barmex_addenda_record,contact_user,1,0,0,0
+barmex_addenda_record_admin,Addenda,model_barmex_addenda_record,contact_manager,1,1,1,1
+barmex_classification_admin,Classification,model_barmex_classification,purchase.group_purchase_manager,1,1,1,1
+barmex_classification_user,Classification,model_barmex_classification,purchase.group_purchase_user,1,0,0,0
+barmex_contacts_collector_read,Sale Collector,model_barmex_collector,contact_user,1,0,0,0
+barmex_contacts_collector_admin,Sale Collector,model_barmex_collector,contact_manager,1,1,1,1
+barmex_collector_read,Sale Collector,model_barmex_collector,account.group_account_invoice,1,0,0,0
+barmex_contacts_collector,Sale Collector,model_barmex_collector,account.group_account_manager,1,1,1,1
+barmex_contacts_corporate,barmex.corporate,model_barmex_corporate,,1,1,1,1
+barmex_invoices_admin,Invoices administration,model_barmex_invoice,purchase.group_purchase_manager,1,1,1,1
+barmex_invoices_user,Invoices administration,model_barmex_invoice,purchase.group_purchase_user,1,0,0,0
+access_customer_type_read,Customer Type,model_barmex_partner_type,contact_user,1,0,0,0
+access_customer_type_admin,Customer Type,model_barmex_partner_type,contact_manager,1,1,1,1
+barmex_product_classification_user,Product classification,model_barmex_product_classification,purchase.group_purchase_user,1,0,0,0
+barmex_product_classification_admin,Product classification,model_barmex_product_classification,purchase.group_purchase_manager,1,1,1,1
+barmex_reasons_user,Credit Note Reasons,model_barmex_reason,account.group_account_invoice,1,0,0,0
+barmex_reasons_admin,Credit Note Reasons,model_barmex_reason,account.group_account_manager,1,1,1,1
+barmex_contact_read_read,Contact User,model_res_partner,contact_user,1,0,0,0
+barmex_contact_read_admin,Contact User,model_res_partner,contact_manager,1,1,1,1
+barmex_contacts_sale_zone_read,Sale Zone,model_barmex_sale_zone,contact_user,1,0,0,0
+barmex_contacts_sale_zone_admin,Sale Zone,model_barmex_sale_zone,contact_manager,1,1,1,1
+barmex_shipping_admin,Shipping,model_barmex_shipping,purchase.group_purchase_manager,1,1,1,1
+barmex_shipping_user,Shipping,model_barmex_shipping,purchase.group_purchase_user,1,0,0,0
+barmex_vendor_price_user,Vendor price,model_barmex_vendor_price,stock.group_stock_user,1,0,0,0
+barmex_vendor_price_admin,Vendor price,model_barmex_vendor_price,stock.group_stock_manager,1,1,1,1

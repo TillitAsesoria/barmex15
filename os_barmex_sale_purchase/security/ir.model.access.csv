@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+barmex_contacts_vendor_type_read,Vendor type,model_barmex_vendor_type,os_barmex.contact_user,1,0,0,0
+barmex_contacts_vendor_type_admin,Vendor type,model_barmex_vendor_type,os_barmex.contact_manager,1,1,1,1
+barmex_vendor_type_user,Vendor type,model_barmex_vendor_type,purchase.group_purchase_user,1,0,0,0
+barmex_vendor_type_admin,Vendor type,model_barmex_vendor_type,purchase.group_purchase_manager,1,1,1,1
+barmex_contacts_crm_read,CRM,model_crm_lead,os_barmex.contact_user,1,0,0,0
+barmex_contacts_crm_admin,CRM,model_crm_lead,os_barmex.contact_manager,1,1,1,1
+barmex_contacts_pricelist_read,Partner Pricelist,product.model_product_pricelist,os_barmex.contact_user,1,0,0,0
+barmex_contacts_pricelist_admin,Partner Pricelist,product.model_product_pricelist,os_barmex.contact_manager,1,1,1,1
+barmex_contact_read_read,Contact User,base.model_res_partner,os_barmex.contact_user,1,0,0,0
+barmex_contact_read_admin,Contact User,base.model_res_partner,os_barmex.contact_manager,1,1,1,1
+barmex_contacts_bank_read,Bank Account,base.model_res_partner_bank,os_barmex.contact_user,1,0,0,0
+barmex_contacts_bank_admin,Bank Account,base.model_res_partner_bank,os_barmex.contact_manager,1,1,1,1
+barmex_contacts_sale_read,Sale,sale.model_sale_order,os_barmex.contact_user,1,0,0,0
+barmex_contacts_sale_admin,Sale,sale.model_sale_order,os_barmex.contact_manager,1,1,1,1
+barmex_contacts_purchase_user,Purchase,purchase.model_purchase_order,os_barmex.contact_user,1,0,0,0
+barmex_contacts_purchase_admin,Purchase,purchase.model_purchase_order,os_barmex.contact_manager,1,1,1,1

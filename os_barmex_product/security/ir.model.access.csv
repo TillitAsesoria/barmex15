@@ -1,0 +1,19 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+barmex_customer_prodct_reference_user,Customer Product Code,model_barmex_customer_codes,stock.group_stock_user,1,0,0,0
+barmex_customer_prodct_reference_admin,Customer Product Code,model_barmex_customer_codes,stock.group_stock_manager,1,1,1,1
+barmex_product_customer_pricelist_user,Customer product price list,model_barmex_customer_product_pricelist,base.group_user,1,0,0,0
+barmex_product_customer_pricelist_manager,Customer product price list,model_barmex_customer_product_pricelist,base.group_partner_manager,1,0,0,0
+barmex_product_customer_pricelist_admin,Customer product price list,model_barmex_customer_product_pricelist,base.group_system,1,1,1,1
+barmex_product_subline_user,Product sub line,model_barmex_product_subline,purchase.group_purchase_user,1,0,0,0
+barmex_product_subline_admin,Product sub line,model_barmex_product_subline,purchase.group_purchase_manager,1,1,1,1
+barmex_product_subgroup_user,Product sub group,model_barmex_product_subgroup,purchase.group_purchase_user,1,0,0,0
+barmex_product_subgroup_admin,Product sub group,model_barmex_product_subgroup,purchase.group_purchase_manager,1,1,1,1
+barmex_product_speciallity_user,Product speciallity,model_barmex_product_speciallity,purchase.group_purchase_user,1,0,0,0
+barmex_product_speciallity_admin,Product speciallity,model_barmex_product_speciallity,purchase.group_purchase_manager,1,1,1,1
+barmex_product_group_user,Product group,model_barmex_product_group,purchase.group_purchase_user,1,0,0,0
+barmex_product_group_admin,Product group,model_barmex_product_group,purchase.group_purchase_manager,1,1,1,1
+barmex_product_brand_user,Product brand,model_barmex_product_brand,purchase.group_purchase_user,1,0,0,0
+barmex_product_brand_admin,Product brand,model_barmex_product_brand,purchase.group_purchase_manager,1,1,1,1
+barmex_petition,Petition,model_barmex_petition_relation,base.group_user,1,1,1,1
+barmex_contacts_pricelist_read,Partner Pricelist,model_product_pricelist,os_barmex.contact_user,1,0,0,0
+barmex_contacts_pricelist_admin,Partner Pricelist,model_product_pricelist,os_barmex.contact_manager,1,1,1,1

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="calsonickansei" name="CALSONICKANSEI MEXICANA">
+            <t t-set="num" t-value="1"/>
+            <fa:Datos xmlns:fa="finanzas">
+                <fa:AddendaComercial>
+                    <t t-foreach="record.invoice_line_ids" t-as="line">
+                        <fa:Finanzas t-att-Linea="num"
+                                     t-att-PO="record.addenda_id.po"
+                                     t-att-Part="line.product_id.l10n_mx_edi_code_sat_id.code"
+                                     t-att-Moneda="record.currency_id.name"/>
+                        <t t-set="num" t-value="num + 1"/>
+                    </t>
+                </fa:AddendaComercial>
+            </fa:Datos>
+        </template>
+        <record id="calsonickansei" model="ir.ui.view">
+            <field name="l10n_mx_edi_addenda_flag">True</field>
+        </record>
+    </data>
+</odoo>

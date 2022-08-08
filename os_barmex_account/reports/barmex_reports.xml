@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+
+        <report
+                id="action_report_payment_receipt_barmex"
+                string="Complemento de pago"
+                model="account.payment"
+                report_type="qweb-pdf"
+                file="os_barmex_account.barmex_report_payment_receipt"
+                name="os_barmex_account.barmex_report_payment_receipt"
+                print_report_name="'Recibo de pago - %s' % (object.name)"
+        />
+
+        <report
+                id="barmex_customer_aging_report"
+                string="Customer Aging"
+                model="os_barmex_account.customer.aging"
+                report_type="qweb-pdf"
+                file="os_barmex_account.barmex_customer_aging_template"
+                name="os_barmex_account.barmex_customer_aging_template"
+                print_report_name="'Inventory - %s - %s' % (object.name, object.date)"
+                paperformat="os_barmex_account.paperformat_account_journal"
+        />
+
+        <report
+                id="nota_cargo"
+                string="NOTA DE CARGO"
+                model="account.move"
+                report_type="qweb-pdf"
+                file="os_barmex_account.barmex_note_cargo_template"
+                name="os_barmex_account.barmex_note_cargo_template"
+                print_report_name="'Nota de cargo - %s' %  object.name"
+        />
+
+    </data>
+</odoo>

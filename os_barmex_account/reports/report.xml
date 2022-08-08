@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="purchase.report_purchase_quotation"
+            string="BARMEX Purchase Requisition"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="os_barmex_account.barmex_requisition_template"
+            name="os_barmex_account.barmex_requisition_template"
+            print_report_name="'Requisition - %s' % (object.name)"
+            paperformat="paperformat_reporte_sp"
+    />
+
+    <report
+            id="purchase.action_report_purchase_order"
+            string="BARMEX Purchase Order"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="os_barmex_account.barmex_purchase_template"
+            name="os_barmex_account.barmex_purchase_template"
+            print_report_name="'Requisition - %s' % (object.name)"
+            paperformat="paperformat_reporte_oc"
+    />
+    <report
+            id="barmex_sale_profit_report"
+            string="Sale Profit"
+            model="os_barmex_account.cost.effectiveness"
+            report_type="qweb-pdf"
+            file="os_barmex_account.barmex_sale_profit_template"
+            name="os_barmex_account.barmex_sale_profit_template"
+            print_report_name="'Sale_Cost_Report_%s' % time.strftime('%d%m%Y_%H%M%S')"
+            paperformat="paperformat_account_journal"
+    />
+
+    <report
+            id="sale.action_report_saleorder"
+            string="Quotation"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="os_barmex_account.barmex_quotation_template"
+            name="os_barmex_account.barmex_quotation_template"
+            print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
+    />
+</odoo>
