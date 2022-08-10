@@ -90,8 +90,8 @@ class PurchaseOrderLine(models.Model):
             vals = line._prepare_compute_all_values()
             taxes = line.taxes_id.compute_all(
                 vals['price_unit'],
-                vals['currency_id'],
-                vals['product_qty'],
+                vals['currency'],
+                vals['quantity'],
                 vals['product'],
                 vals['partner'])
             line.update({

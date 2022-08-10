@@ -25,12 +25,13 @@ class SaleOrder(models.Model):
     lco_fact_global_related = fields.Boolean(
         string='Global invoicing',
         related='partner_id.lco_fact_global')
-    lco_sale_customer_type = fields.Char(
+    lco_sale_customer_type = fields.Many2one(
+        'barmex.partner.type',
         string='Customer type',
-        related='partner_id.lco_customer_type.type_cust_id',
+        related='partner_id.lco_customer_type',
         store=True,
         copied=True,
-        readonly=True)
+        readonly=False)
     credit_currency = fields.Many2one(
         string='Credit Currency',
         related='partner_id.credit_currency')
@@ -132,9 +133,9 @@ class SaleOrder(models.Model):
         addr = self.partner_id.address_get(['delivery', 'invoice'])
         partner_user = self.partner_id.user_id or self.partner_id.commercial_partner_id.user_id
         values = {
-            'pricelist_id': self.partner_id.property_product_pricelist and
-                            self.partner_id.property_product_pricelist.id or
-                            False,
+            # 'pricelist_id': self.partner_id.property_product_pricelist and
+            #                 self.partner_id.property_product_pricelist.id or
+            #                 False,
             'lco_property_product_pricelist_id':
                 self.partner_id.lco_property_product_pricelist and
                 self.partner_id.lco_property_product_pricelist.id or False,
@@ -225,22 +226,22 @@ class SaleOrder(models.Model):
                 'previous_state': '',
             })
 
-    @api.onchange('partner_id')
-    def _available_pricelist(self):
-        pricelist = self.env['barmex.customer.product.pricelist'].search(
-            [('partner_id', '=', self.partner_id.id)])
-        ids = []
-        ids2 = []
-        for record in pricelist:
-            if not record.pricelist_id.reseller_price:
-                ids.append(record.pricelist_id.id)
-            else:
-                ids2.append(record.pricelist_id.id)
-
-        return {'domain':
-                    {'pricelist_id': [('id', 'in', ids)],
-                     'lco_property_product_pricelist_id': [('id', 'in', ids2)]}
-                }
+    # @api.onchange('partner_id')
+    # def _available_pricelist(self):
+    #     pricelist = self.env['barmex.customer.product.pricelist'].search(
+    #         [('partner_id', '=', self.partner_id.id)])
+    #     ids = []
+    #     ids2 = []
+    #     for record in pricelist:
+    #         if not record.pricelist_id.reseller_price:
+    #             ids.append(record.pricelist_id.id)
+    #         else:
+    #             ids2.append(record.pricelist_id.id)
+    #
+    #     return {'domain':
+    #                 {'pricelist_id': [('id', 'in', ids)],
+    #                  'lco_property_product_pricelist_id': [('id', 'in', ids2)]}
+    #             }
 
     @api.onchange('partner_id')
     def onchange_partner_id(self):

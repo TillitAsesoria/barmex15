@@ -292,7 +292,7 @@
                               name='barmex_purchase'
                               groups="os_barmex.barmex_account_payable,
                                   os_barmex.barmex_purchases"
-                              attrs="{'invisible':[('customer_rank','>',0)]}">
+                              >
                             <group>
                                 <group>
                                     <field name='type_vendor'/>
@@ -821,7 +821,7 @@
                               name='barmex_sale'
                               groups="os_barmex.barmex_sales,
                                       os_barmex.barmex_account_receivable"
-                              attrs="{'invisible':[('supplier_rank','>',0)]}">
+                              >
                             <!-- <field name='cobrador_employee_ids'
                                    nolabel="1"
                                    context="{'default_partner_id':active_id}"

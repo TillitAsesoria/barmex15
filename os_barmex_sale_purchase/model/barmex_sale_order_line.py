@@ -160,7 +160,6 @@ class SaleOrderLine(models.Model):
 
     def _get_display_price(self, product):
         res = super(SaleOrderLine, self)._get_display_price(product)
-
         if self.product_id.sale_offer:
             pricelist = self._product_in_pricelist()
             res = pricelist.fixed_price
@@ -168,20 +167,12 @@ class SaleOrderLine(models.Model):
         return res
 
     def _product_in_pricelist(self):
-        pricelist = None
-        try:
-            pricelist = self.order_id.pricelist_id.item_ids[
-                0].base_pricelist_id
-        except:
-            raise Warning(_("Lista de precio Invalida"))
+        pricelist = self.order_id.pricelist_id.item_ids.filtered(
+            lambda l: l.product_tmpl_id.id == self.product_id.product_tmpl_id.id)
+        if pricelist:
+            return pricelist
+        else:
+            raise ValidationError(_("Producto Invalido"))
 
-        product_pricelist = self.env['product.pricelist.item'].search(
-            [('pricelist_id', '=', pricelist.id),
-             '|', ('product_id', '=', self.product_id.id),
-             '&', ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id),
-             ('product_id', '=', False), ], limit=1)
 
-        if not product_pricelist:
-            raise Warning(_("Producto Invalido"))
 
-        return product_pricelist

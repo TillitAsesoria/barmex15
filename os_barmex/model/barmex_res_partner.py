@@ -1,6 +1,7 @@
 import re
 import datetime
 from odoo import models, fields, api, _
+from odoo.osv import expression
 from odoo.exceptions import Warning, AccessError, UserError, ValidationError
 from odoo.osv.expression import get_unaccent_wrapper
 
@@ -321,7 +322,7 @@ class ResPartner(models.Model):
             moves = self.env['account.move.line'].search(
                 [('partner_id', '=', record.id), ('reconciled', '=', False),
                  ('debit', '>', 0),
-                 ('move_id.type', '=', 'entry'), ('payment_id', '=', False),
+                 ('move_id.move_type', '=', 'entry'), ('payment_id', '=', False),
                  ('account_id.user_type_id.type', '=', 'receivable'),
                  ('move_id.state', '=', 'posted')])
 
@@ -477,7 +478,7 @@ class ResPartner(models.Model):
     def related_invoices_draft(self):
 
         invoices = self.env['account.move'].search(
-            [('partner_id', '=', self.id), ('type', '=', 'out_invoice'),
+            [('partner_id', '=', self.id), ('move_type', '=', 'out_invoice'),
              ('state', 'in', ('draft', 'lock'))])
 
         return {
@@ -495,7 +496,7 @@ class ResPartner(models.Model):
 
         ids = []
         invoices = self.env['account.move'].search(
-            [('partner_id', '=', self.id), ('type', '=', 'out_invoice'),
+            [('partner_id', '=', self.id), ('move_type', '=', 'out_invoice'),
              ('state', '=', 'posted')])
 
         for record in invoices:
@@ -517,7 +518,7 @@ class ResPartner(models.Model):
 
         ids = []
         invoices = self.env['account.move'].search(
-            [('partner_id', '=', self.id), ('type', '=', 'out_invoice'),
+            [('partner_id', '=', self.id), ('move_type', '=', 'out_invoice'),
              ('state', '=', 'posted'),
              ('invoice_payments_widget', '!=', '')])
 
@@ -694,13 +695,13 @@ class ResPartner(models.Model):
                 if vendor:
                     raise ValidationError(_("Tax id not unique"))
 
-    @api.constrains('vat')
-    def _rfc(self):
-        for contact in self:
-            if not contact.vat:
-                raise ValidationError(_("VAT is required"))
-            elif not contact.validateRFC():
-                raise ValidationError(_("Invalid VAT"))
+    # @api.constrains('vat')
+    # def _rfc(self):
+    #     for contact in self:
+    #         if not contact.vat:
+    #             raise ValidationError(_("VAT is required"))
+    #         elif not contact.validateRFC():
+    #             raise ValidationError(_("Invalid VAT"))
 
     def validateRFC(self):
         ret = False
@@ -789,89 +790,32 @@ class ResPartner(models.Model):
     def check_vat(self):
         return
 
-    # @api.multi
     def name_get(self):
         result = []
         for record in self:
-            # rec_name = "%s - (%s)" % (record.barmex_id_cust, record.name)
             rec_name = record.name
+            if record.barmex_id_cust:
+                rec_name = "%s - (%s)" % (record.barmex_id_cust, record.name)
             result.append((record.id, rec_name))
-
         return result
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100,
                      name_get_uid=None):
-        self = self.with_user(name_get_uid or self.env.uid)
-        # as the implementation is in SQL, we force the recompute of fields if necessary
-        self.recompute(['display_name'])
-        self.flush()
-        if args is None:
-            args = []
-        order_by_rank = self.env.context.get('res_partner_search_mode')
-        if (name or order_by_rank) and operator in (
-                '=', 'ilike', '=ilike', 'like', '=like'):
-            self.check_access_rights('read')
-            where_query = self._where_calc(args)
-            self._apply_ir_rules(where_query, 'read')
-            from_clause, where_clause, where_clause_params = where_query.get_sql()
-            from_str = from_clause if from_clause else 'res_partner'
-            where_str = where_clause and (
-                    " WHERE %s AND " % where_clause) or ' WHERE '
-
-            # search on the name of the contacts and of its company
-            search_name = name
-            if operator in ('ilike', 'like'):
-                search_name = '%%%s%%' % name
-            if operator in ('=ilike', '=like'):
-                operator = operator[1:]
-
-            unaccent = get_unaccent_wrapper(self.env.cr)
-
-            fields = self._get_name_search_order_by_fields()
-
-            query = """SELECT res_partner.id
-                         FROM {from_str}
-                      {where} ({email} {operator} {percent}
-                           OR {display_name} {operator} {percent}
-                           OR {reference} {operator} {percent}
-                           OR {vat} {operator} {percent})
-                           -- don't panic, trust postgres bitmap
-                     ORDER BY {fields} {display_name} {operator} {percent} desc,
-                              {display_name}
-                    """.format(from_str=from_str,
-                               fields=fields,
-                               where=where_str,
-                               operator=operator,
-                               email=unaccent('res_partner.barmex_id_cust'),
-                               display_name=unaccent(
-                                   'res_partner.display_name'),
-                               reference=unaccent('res_partner.ref'),
-                               percent=unaccent('%s'),
-                               vat=unaccent('res_partner.vat'), )
-
-            where_clause_params += [
-                                       search_name] * 3  # for email / display_name, reference
-            where_clause_params += [
-                re.sub('[^a-zA-Z0-9]+', '', search_name) or None]  # for vat
-            where_clause_params += [search_name]  # for order by
-            if limit:
-                query += ' limit %s'
-                where_clause_params.append(limit)
-            self.env.cr.execute(query, where_clause_params)
-            partner_ids = [row[0] for row in self.env.cr.fetchall()]
-
-            if partner_ids:
-                return models.lazy_name_get(self.browse(partner_ids))
-            else:
-                return []
-        return super(ResPartner, self)._name_search(name, args,
-                                                    operator=operator,
-                                                    limit=limit,
-                                                    name_get_uid=name_get_uid)
+        args = args or []
+        domain = []
+        if name:
+            domain = ['|', '|', '|', ('email', '=ilike', name + '%'),
+                      ('name', operator, name),
+                      ('vat', operator, name),
+                      ('barmex_id_cust', operator, name)
+                      ]
+            if operator in expression.NEGATIVE_TERM_OPERATORS:
+                domain = ['&'] + domain
+        return self._search(domain + args, limit=limit,
+                            access_rights_uid=name_get_uid)
 
     @api.onchange('proveedor_employee')
-    @api.depends('proveedor_employee')
     def proveedor_employee_change(self):
         if not self.proveedor_employee:
             self.lco_sale_zone = ""

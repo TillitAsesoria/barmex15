@@ -159,7 +159,7 @@ class AccountMove(models.Model):
         if self.partner_id.collector_ids:
             self.collector_id = self.partner_id.collector_ids[0].id
 
-        if self.partner_id and self.type == 'out_invoice':
+        if self.partner_id and self.move_type == 'out_invoice':
             self.journal_id = self.partner_id.lco_sale_zone.journal_id.id
             self.l10n_mx_edi_usage = self.partner_id.l10n_mx_edi_usage
 
@@ -174,14 +174,14 @@ class AccountMove(models.Model):
                     raise Warning(_("User can't post due Collections lock"))
 
         msg = ''
-        for record in self.filtered(lambda x: x.type == 'entry'):
+        for record in self.filtered(lambda x: x.move_type == 'entry'):
             date = record.invoice_date if record.invoice_date else record.date
             for line in record.line_ids:
                 msg += line.get_credit_message(date)
                 if msg:
                     msg += _('This document will be locked.')
 
-        for record in self.filtered(lambda x: x.type == 'out_invoice'):
+        for record in self.filtered(lambda x: x.move_type == 'out_invoice'):
             msg = record.get_credit_message()
 
         if msg:
@@ -329,10 +329,10 @@ class AccountMove(models.Model):
         template_id = self.env.ref('barmex.barmex_email_invoice_template').id
         mail = self.env['mail.template'].browse(template_id)
         type = ''
-        if self.type == 'out_invoice':
+        if self.move_type == 'out_invoice':
             type = _('Invoice')
 
-        if self.type == 'out_refund':
+        if self.move_type == 'out_refund':
             type = _('Credit Note')
 
         if self.out_debit_note:
